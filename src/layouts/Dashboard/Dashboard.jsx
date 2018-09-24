@@ -35,7 +35,6 @@ import DukungPage from "views/Dashboard/DukungPage.jsx";
 import AdminPage from "views/Dashboard/AdminPage.jsx";
 import DaftarDukunganPage from "views/Dashboard/DaftarDukunganPage.jsx";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import MainPage from "views/Main/MainPage.jsx";
 import EditProfile from "views/Main/EditProfile.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import Icons from "views/Icons/Icons.jsx";

@@ -13,7 +13,6 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
-import CheckboxIcon from "./CheckboxIcon.svg";
 
 const styles = {
   cardCategoryWhite: {

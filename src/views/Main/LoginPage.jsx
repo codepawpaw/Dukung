@@ -100,7 +100,7 @@ class LoginPage extends React.Component {
                     <GridContainer>
                         <GridItem xs={12} sm={12} md={6}>
                         <CustomInput
-                            labelText="Email"
+                            labelText="Username"
                             id="email"
                             formControlProps={{
                                 fullWidth: true
