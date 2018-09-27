@@ -209,7 +209,7 @@ class App extends React.Component {
           
           <Sidebar
             routes={authenticatedUserRoutes}
-            logoText={"Dukung"}
+            logoText={"Pantau Suara"}
             logo={logo}
             image={image}
             handleDrawerToggle={this.handleDrawerToggle}
@@ -224,7 +224,7 @@ class App extends React.Component {
         { this.isRenderSideBar() && !this.isAuthenticated() && !this.isAdmin() ? (
           <Sidebar
             routes={nonAuthenticatedUserRoutes}
-            logoText={"Dukung"}
+            logoText={"Pantau Suara"}
             logo={logo}
             image={image}
             handleDrawerToggle={this.handleDrawerToggle}
@@ -239,7 +239,7 @@ class App extends React.Component {
         { this.isRenderSideBar() && this.isAdmin() ? (
           <Sidebar
             routes={adminRoutes}
-            logoText={"Dukung"}
+            logoText={"Pantau Suara"}
             logo={logo}
             image={image}
             handleDrawerToggle={this.handleDrawerToggle}
