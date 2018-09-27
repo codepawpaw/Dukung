@@ -7,9 +7,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import TableDetail from "./TableDetail.jsx";
 // core components
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle";
 import Button from "components/CustomButtons/Button.jsx";
+import SelectedPendukungAction from "../../action/selected_pendukung_action";
 
 class CustomTable extends React.Component {
   constructor(props) {
@@ -66,6 +68,10 @@ class CustomTable extends React.Component {
       });
   }
 
+  viewDetailPendukung() {
+    this.props.showSelectedPendukung("");
+  }
+
   render() {
     const { classes, tableHead, tableData, tableHeaderColor } = this.props;
     return (
@@ -102,15 +108,16 @@ class CustomTable extends React.Component {
                     } else if(this.props.withActionButtonDeletePendukung === true && i >= props2.length) {
                       return (
                         <div>
-                          <Button onClick={this.deletePendukung.bind(this, props2[2])} color="primary">Delete</Button>
+                          <Button onClick={this.deletePendukung.bind(this, props2[2])} color="danger">Delete</Button>
                           { props2[7] === "false" ? (
-                            <Button onClick={this.approvePendukung.bind(this, props2[2])} color="primary">Approve</Button>
+                            <Button onClick={this.approvePendukung.bind(this, props2[2])} color="success">Approve</Button>
                           ) : (<div/>)
                           }
                         </div>
                       )
                     } else {
-                      return <TableCell className={classes.tableCell} key={key+i}>{prop}</TableCell>
+                      // return <TableCell onClick={this.viewDetailPendukung} className={classes.tableCell} key={key+i}>{prop}</TableCell>
+                      return <TableDetail classes={classes.tableCell} key={key+i} data={prop} identifier={props2[2]}/>
                     }
                   })}
                 </TableRow>

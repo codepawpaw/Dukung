@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
@@ -13,6 +14,8 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
+import SelectedPendukungAction from "../../action/selected_pendukung_action";
+import DetailPendukung from "./DetailPendukung.jsx";
 
 const styles = {
   cardCategoryWhite: {
@@ -55,6 +58,11 @@ class DaftarDukunganPage extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.sendFailed = false;
     this.onChecked = this.onChecked.bind(this);
+    this.closeDetailPendukung = this.closeDetailPendukung.bind(this);
+  }
+
+  closeDetailPendukung() {
+    this.props.showSelectedPendukung("");
   }
 
   onChecked() {
@@ -150,6 +158,21 @@ class DaftarDukunganPage extends React.Component {
       }
       displayedData.push(temp);
     })
+
+    if(this.props.selectedPendukung.length > 0) {
+      return (
+        <div onClick={this.closeDetailPendukung}>
+        <DetailPendukung
+          message={
+            'Detail User'
+          }
+          close
+          color="info"
+          nik={this.props.selectedPendukung}
+        />
+        </div>
+      )
+    }
 
     return (
       <GridContainer>
@@ -250,4 +273,19 @@ class DaftarDukunganPage extends React.Component {
   }
 }
 
-export default withStyles(styles)(DaftarDukunganPage);
+const mapStateToProps = (state, props) => ({
+  selectedPendukung: state.selected_pendukung
+});
+
+const mapDispatchToProps = dispatch => ({
+  showSelectedPendukung: nik => {
+    dispatch(SelectedPendukungAction.elements(nik));
+  },
+});
+
+export { DaftarDukunganPage };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(DaftarDukunganPage));
+// export default withStyles(styles)(DaftarDukunganPage);
