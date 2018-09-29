@@ -153,6 +153,12 @@ class DaftarDukunganPage extends React.Component {
         temp.push(data[key].provinsi);
         temp.push(data[key].kabupaten);
         temp.push(data[key].kecamatan);
+        temp.push(data[key].tps);
+        if(pendukungs[i].witness === 1) {
+          temp.push("Ya")
+        } else {
+          temp.push("Tidak")
+        }
         temp.push(pendukungs[i].status.toString());
         counter++;
       }
@@ -189,7 +195,7 @@ class DaftarDukunganPage extends React.Component {
             <CardBody>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["ID", "Name", "NIK", "Phone", "Provinsi", "Kabupaten", "Kecamatan"]}
+                tableHead={["ID", "Name", "NIK", "Phone", "Provinsi", "Kabupaten", "Kecamatan", "TPS", "Saksi"]}
                 tableData={displayedData}
                 withActionButtonDeletePendukung={true}
                 withActionButtonApprove={true}

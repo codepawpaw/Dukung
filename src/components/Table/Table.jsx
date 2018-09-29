@@ -109,7 +109,7 @@ class CustomTable extends React.Component {
                       return (
                         <div>
                           <Button onClick={this.deletePendukung.bind(this, props2[2])} color="danger">Delete</Button>
-                          { props2[7] === "false" ? (
+                          { props2[9] === "false" ? (
                             <Button onClick={this.approvePendukung.bind(this, props2[2])} color="success">Approve</Button>
                           ) : (<div/>)
                           }
