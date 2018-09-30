@@ -154,7 +154,7 @@ class DaftarDukunganPage extends React.Component {
         temp.push(data[key].kabupaten);
         temp.push(data[key].kecamatan);
         temp.push(data[key].tps);
-        if(pendukungs[i].witness === 1) {
+        if(pendukungs[i].witness === true) {
           temp.push("Ya")
         } else {
           temp.push("Tidak")

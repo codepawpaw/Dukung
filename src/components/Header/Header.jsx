@@ -52,6 +52,22 @@ class Header extends React.Component {
 
     return (
       <AppBar className={classes.appBar + appBarClasses}>
+            {
+              user !== null ? (
+                // <div>{user.username} as {user.tingkat}</div>
+                <Snackbar
+                  place="tl"
+                  color="info"
+                  icon={AddAlert}
+                  message={"Login as " + user.username + " with " + user.tingkat + " position"}
+                  open={this.state.openLoginNotification}
+                  closeNotification={() => this.setState({ openLoginNotification: false })}
+                  close={false}
+                />
+              ) : (
+                <div/>
+              )
+            }
         <Toolbar className={classes.container}>
           <div className={classes.flex}>
             {/* Here we create navbar brand, based on route name */}
@@ -71,29 +87,6 @@ class Header extends React.Component {
               <Menu />
             </IconButton>
           </Hidden>
-        </Toolbar>
-        <Toolbar>
-          {/* <div className={classes.flex}> */}
-            {/* Here we create navbar brand, based on route name */}
-            {/* <Button color="transparent" href="#" className={classes.title}> */}
-            {
-              user !== null ? (
-                // <div>{user.username} as {user.tingkat}</div>
-                <Snackbar
-                  place="tl"
-                  color="info"
-                  icon={AddAlert}
-                  message={"Login as " + user.username + " with " + user.tingkat + " position"}
-                  open={this.state.openLoginNotification}
-                  closeNotification={() => this.setState({ openLoginNotification: false })}
-                  close={false}
-                />
-              ) : (
-                <div/>
-              )
-            }
-            {/* </Button> */}
-          {/* </div> */}
         </Toolbar>
       </AppBar>
     );

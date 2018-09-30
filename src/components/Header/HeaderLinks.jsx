@@ -37,6 +37,7 @@ class HeaderLinks extends React.Component {
   }
 
   handleClose = event => {
+    console.log("Logout");
     if (this.anchorEl.contains(event.target)) {
       return;
     }
