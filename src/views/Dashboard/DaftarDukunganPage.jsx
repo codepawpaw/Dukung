@@ -142,10 +142,11 @@ class DaftarDukunganPage extends React.Component {
     var data = this.state.pendukungs;
     var displayedData = [];
     var counter = 1;
+    console.log(data);
     Object.keys(data).map((key) => {
-      var temp = [];
       var pendukungs = data[key].pendukungs;
       for(var i = 0; i < pendukungs.length; i++) {
+        var temp = [];
         temp.push(counter.toString());
         temp.push(pendukungs[i].name);
         temp.push(pendukungs[i].nik);
