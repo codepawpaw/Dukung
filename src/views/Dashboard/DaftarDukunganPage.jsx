@@ -142,7 +142,6 @@ class DaftarDukunganPage extends React.Component {
     var data = this.state.pendukungs;
     var displayedData = [];
     var counter = 1;
-    console.log(data);
     Object.keys(data).map((key) => {
       var pendukungs = data[key].pendukungs;
       for(var i = 0; i < pendukungs.length; i++) {
@@ -161,9 +160,9 @@ class DaftarDukunganPage extends React.Component {
           temp.push("Tidak")
         }
         temp.push(pendukungs[i].status.toString());
+        displayedData.push(temp);
         counter++;
       }
-      displayedData.push(temp);
     })
 
     if(this.props.selectedPendukung.length > 0) {
