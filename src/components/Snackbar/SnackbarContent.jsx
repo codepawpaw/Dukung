@@ -24,6 +24,7 @@ class SnackbarContent extends React.Component {
     if (close !== undefined) {
       action = [
         <IconButton
+          onClick={this.props.click}
           className={classes.iconButton}
           key="close"
           aria-label="Close"
@@ -33,6 +34,7 @@ class SnackbarContent extends React.Component {
         </IconButton>
       ];
     }
+
     return (
       <Snack
         message={

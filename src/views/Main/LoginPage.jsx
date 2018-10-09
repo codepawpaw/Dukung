@@ -13,6 +13,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Axios from "axios";
 import UsersAction from "../../action/users_action";
+import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 
 const styles = {
   cardCategoryWhite: {
@@ -37,6 +38,8 @@ class LoginPage extends React.Component {
     constructor(props = {}) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.onClickAlert = this.onClickAlert.bind(this);
+        this.state = { loginFailed: false };
 
         if (typeof this.props.saveUser === "undefined") {
             this.props.saveUser = () => {};
@@ -47,6 +50,10 @@ class LoginPage extends React.Component {
         var username = document.querySelector("#email").value;
         var password = document.querySelector("#password").value;
         this.login({username: username, password: password});
+    }
+
+    onClickAlert() {
+        this.setState({ loginFailed: false });
     }
 
     login(auth) {
@@ -82,6 +89,8 @@ class LoginPage extends React.Component {
                     sessionStorage.setItem("user", JSON.stringify(userData));
                     this.props.history.push("/dashboard");
                 }
+            } else {
+                this.setState({ loginFailed: true })
             }
         });
     }
@@ -118,6 +127,19 @@ class LoginPage extends React.Component {
                             }}
                             isPassword={true}
                         />
+                        {
+                        this.state.loginFailed ? (
+                            <SnackbarContent
+                                message={
+                                'Wrong password or username'
+                                }
+                                close
+                                color="danger"
+                                show={this.state.loginFailed}
+                                click={this.onClickAlert}
+                            />
+                        ) : (<div/>)
+                        }
                         </GridItem>
                     </GridContainer>
                     </CardBody>
