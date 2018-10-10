@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+// @material-ui/icons
+import AddAlert from "@material-ui/icons/AddAlert";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Table from "@material-ui/core/Table";
@@ -12,10 +14,14 @@ import TableDetail from "./TableDetail.jsx";
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle";
 import Button from "components/CustomButtons/Button.jsx";
 import SelectedPendukungAction from "../../action/selected_pendukung_action";
+import SnackbarWithConfirmation from "components/Snackbar/SnackbarWithConfirmation.jsx";
 
 class CustomTable extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { showDeleteConfirmation: false, tc: false, selectedNik: "", selectedName: "" };
+    this.deletePendukung = this.deletePendukung.bind(this);
+    this.hideDeleteAlert = this.hideDeleteAlert.bind(this);
   }
 
   approvePendukung(nik) {
@@ -30,11 +36,41 @@ class CustomTable extends React.Component {
       })
       .then(dataResult => {
         window.location = "/daftar-dukungan";
-        //this.setState({ users: dataResult });
       });
   }
 
-  deletePendukung(nik) {
+  clearAlertTimeout() {
+    if (this.alertTimeout !== null) {
+      clearTimeout(this.alertTimeout);
+    }
+  }
+
+  hideDeleteAlert() {
+    this.setState({ tc: false });
+  }
+
+  showNotification(place) {
+    var x = [];
+    x[place] = true;
+    this.setState(x);
+    this.clearAlertTimeout();
+    this.alertTimeout = setTimeout(
+      function() {
+        x[place] = false;
+        this.setState(x);
+      }.bind(this),
+      9000
+    );
+  }
+
+  clickDeleteButton(nik, name) {
+      this.setState({ selectedNik: nik, selectedName: name });
+      this.showNotification("tc");
+  }
+
+  deletePendukung() {
+      var nik = this.state.selectedNik;
+      console.log(nik);
       var formData = new FormData();
       fetch('http://128.199.101.218:8181/pemilu/deletePendukung?nik='+nik, {
           method: 'DELETE',
@@ -49,7 +85,6 @@ class CustomTable extends React.Component {
       .then(dataResult => {
         console.log(dataResult);
         window.location = "/daftar-dukungan";
-        //this.setState({ users: dataResult });
       });
   }
 
@@ -74,8 +109,20 @@ class CustomTable extends React.Component {
 
   render() {
     const { classes, tableHead, tableData, tableHeaderColor } = this.props;
+    const messageAlert = "Apakah kamu yakin akan menghapus "+ this.state.selectedName + " dari daftar pendukung ?"
     return (
       <div className={classes.tableResponsive}>
+        <SnackbarWithConfirmation
+          place="tc"
+          color="primary"
+          icon={AddAlert}
+          message={messageAlert}
+          open={this.state.tc}
+          deleteButton={this.deletePendukung}
+          cancelButton={this.hideDeleteAlert}
+          closeNotification={() => this.setState({ tc: false })}
+          close
+        />
         <Table className={classes.table}>
           {tableHead !== undefined ? (
             <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
@@ -108,7 +155,7 @@ class CustomTable extends React.Component {
                     } else if(this.props.withActionButtonDeletePendukung === true && i >= props2.length) {
                       return (
                         <div>
-                          <Button onClick={this.deletePendukung.bind(this, props2[2])} color="danger">Delete</Button>
+                          <Button onClick={this.clickDeleteButton.bind(this, props2[2], props2[1])} color="danger">Delete</Button>
                           { props2[9] === "false" ? (
                             <Button onClick={this.approvePendukung.bind(this, props2[2])} color="success">Approve</Button>
                           ) : (<div/>)
