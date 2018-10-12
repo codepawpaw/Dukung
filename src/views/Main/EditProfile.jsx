@@ -13,6 +13,8 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Axios from "axios";
 import UsersAction from "../../action/users_action";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 
 const styles = {
   cardCategoryWhite: {
@@ -37,13 +39,20 @@ class EditProfile extends React.Component {
     constructor(props = {}) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.onClickAlert = this.onClickAlert.bind(this);
 
         if (typeof this.props.saveUser === "undefined") {
             this.props.saveUser = () => {};
         }
+        this.state = { updateProfileFailed: false, updateProfileInProgress: false };
+    }
+
+    onClickAlert() {
+        this.setState({ updateProfileFailed: false });
     }
 
     handleClick(event) {
+        this.setState({ updateProfileInProgress: true });
         var oldpassword = document.querySelector("#oldpassword").value;
         var newpassword = document.querySelector("#newpassword").value;
         this.editProfile({oldpassword: oldpassword, newpassword: newpassword});
@@ -67,9 +76,10 @@ class EditProfile extends React.Component {
             return response.json()
         })
         .then(dataResult => {
-            console.log(dataResult);
             if(dataResult.result == true) {
                 this.props.history.push("/dashboard");
+            } else {
+                this.setState({ updateProfileFailed: true, updateProfileInProgress: false });
             }
         });
     }
@@ -107,8 +117,27 @@ class EditProfile extends React.Component {
                             }}
                             isPassword={true}
                         />
+
+                        {
+                            this.state.updateProfileFailed ? (
+                                <SnackbarContent
+                                    message={
+                                    'Anda memasukkan password lama dengan input yang salah. Mohon dicek kembali'
+                                    }
+                                    close
+                                    color="danger"
+                                    show={this.state.updateProfileFailed}
+                                    click={this.onClickAlert}
+                                />
+                            ) : (<div/>)
+                        }
                         </GridItem>
                     </GridContainer>
+                    {
+                        this.state.updateProfileInProgress ? (
+                            <CircularProgress className={classes.progress} size={50} />
+                        ) : (<div/>)
+                    }
                     </CardBody>
                     <CardFooter>
                     <Button onClick={this.handleClick} color="primary">Update Profile</Button>
