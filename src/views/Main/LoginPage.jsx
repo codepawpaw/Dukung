@@ -14,6 +14,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Axios from "axios";
 import UsersAction from "../../action/users_action";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
   cardCategoryWhite: {
@@ -39,7 +40,7 @@ class LoginPage extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.onClickAlert = this.onClickAlert.bind(this);
-        this.state = { loginFailed: false };
+        this.state = { loginFailed: false, loginInProgress: false };
 
         if (typeof this.props.saveUser === "undefined") {
             this.props.saveUser = () => {};
@@ -47,6 +48,7 @@ class LoginPage extends React.Component {
     }
 
     handleClick(event) {
+        this.setState({ loginInProgress: true });
         var username = document.querySelector("#email").value;
         var password = document.querySelector("#password").value;
         this.login({username: username, password: password});
@@ -90,7 +92,7 @@ class LoginPage extends React.Component {
                     this.props.history.push("/dashboard");
                 }
             } else {
-                this.setState({ loginFailed: true })
+                this.setState({ loginFailed: true, loginInProgress: false })
             }
         });
     }
@@ -142,6 +144,11 @@ class LoginPage extends React.Component {
                         }
                         </GridItem>
                     </GridContainer>
+                    {
+                        this.state.loginInProgress ? (
+                            <CircularProgress className={classes.progress} size={50} />
+                        ) : (<div/>)
+                    }
                     </CardBody>
                     <CardFooter>
                     <Button onClick={this.handleClick} color="primary">Login</Button>
