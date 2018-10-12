@@ -16,6 +16,7 @@ import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
 import SelectedPendukungAction from "../../action/selected_pendukung_action";
 import DetailPendukung from "./DetailPendukung.jsx";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
   cardCategoryWhite: {
@@ -51,7 +52,7 @@ class DaftarDukunganPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { pendukungs: [], sendFailed: false, checked: false };
+    this.state = { pendukungs: [], sendFailed: false, checked: false, addPendukungInProgress: false };
     this.props = props;
     this.getAllPendukung();
     this.onChange = this.onChange.bind(this)
@@ -70,6 +71,8 @@ class DaftarDukunganPage extends React.Component {
   }
 
   handleClick(event) {
+      this.setState({ addPendukungInProgress: true });
+
       var nik = document.querySelector("#nik").value;
       var phone = document.querySelector("#phone").value;
       var witness = document.querySelector("#witness").value;
@@ -112,9 +115,24 @@ class DaftarDukunganPage extends React.Component {
             window.location = "/daftar-dukungan";
           } else {
             this.sendFailed = true;
-            this.setState({ sendFailed: true });
+            this.setState({ sendFailed: true, addPendukungInProgress: false });
           }
       })
+
+      // var xhr = new XMLHttpRequest();
+
+      // xhr.addEventListener("readystatechange", function () {
+      //   console.log(this.readyState);
+      //   console.log(this.responseText);
+
+      //   if (this.readyState === 4) {
+      //     console.log(this.responseText);
+      //   }
+      // });
+
+      // xhr.open("POST", "http://128.199.101.218:8181/pemilu/addPendukung", true);
+
+      // xhr.send(formData);
   }
 
   onChange(e) {
@@ -268,6 +286,11 @@ class DaftarDukunganPage extends React.Component {
                 }
                 </GridItem>
             </GridContainer>
+            {
+              this.state.addPendukungInProgress ? (
+                <CircularProgress className={classes.progress} size={50} />
+               ) : (<div/>)
+            }
             </CardBody>
             <CardFooter>
               <Button onClick={this.handleClick} color="primary">Tambahkan Pendukung</Button>
@@ -294,4 +317,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(DaftarDukunganPage));
-// export default withStyles(styles)(DaftarDukunganPage);

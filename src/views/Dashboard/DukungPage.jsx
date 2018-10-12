@@ -11,6 +11,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
   cardCategoryWhite: {
@@ -36,7 +37,8 @@ class DukungPage extends React.Component {
         super(props);
         this.state ={
             file:null,
-            checked: false
+            checked: false,
+            addPendukungInProgress: false
         }
         this.onChange = this.onChange.bind(this)
         this.handleClick = this.handleClick.bind(this);
@@ -64,6 +66,7 @@ class DukungPage extends React.Component {
     }
 
     handleClick(event) {
+        this.setState({ addPendukungInProgress: true });
         var nik = document.querySelector("#nik").value;
         var phone = document.querySelector("#phone").value;
         var witness = document.querySelector("#witness").value;
@@ -180,6 +183,11 @@ class DukungPage extends React.Component {
                         /> */}
                         </GridItem>
                     </GridContainer>
+                    {
+                        this.state.addPendukungInProgress ? (
+                            <CircularProgress className={classes.progress} size={50} />
+                        ) : (<div/>)
+                    }
                     </CardBody>
                     <CardFooter>
                     <Button onClick={this.handleClick} color="warning">Dukung</Button>
