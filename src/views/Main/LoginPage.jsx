@@ -151,7 +151,7 @@ class LoginPage extends React.Component {
                     }
                     </CardBody>
                     <CardFooter>
-                    <Button onClick={this.handleClick} color="primary">Login</Button>
+                            <Button onClick={this.handleClick} disabled={this.state.loginInProgress} color="primary">Login</Button>
                     </CardFooter>
                 </Card>
                 </GridItem>

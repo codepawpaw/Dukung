@@ -140,7 +140,7 @@ class EditProfile extends React.Component {
                     }
                     </CardBody>
                     <CardFooter>
-                    <Button onClick={this.handleClick} color="primary">Update Profile</Button>
+                            <Button onClick={this.handleClick} disabled={this.state.updateProfileInProgress} color="primary">Update Profile</Button>)
                     </CardFooter>
                 </Card>
                 </GridItem>
