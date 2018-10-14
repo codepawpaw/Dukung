@@ -1,5 +1,8 @@
 # Dukung
 
+[![Build Status](https://travis-ci.org/jonathannatanaelsiahaan/Dukung.svg?branch=master)](https://travis-ci.org/jonathannatanaelsiahaan/Dukung)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/jonathannatanelsiahaan/Dukung/blob/master/LICENSE)
+
 Dukung is a web app for candidates voting in Indonesian pemilu
 
 # Technology Stack
