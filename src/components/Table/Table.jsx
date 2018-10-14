@@ -163,7 +163,6 @@ class CustomTable extends React.Component {
                         </div>
                       )
                     } else {
-                      // return <TableCell onClick={this.viewDetailPendukung} className={classes.tableCell} key={key+i}>{prop}</TableCell>
                       return <TableDetail classes={classes.tableCell} key={key+i} data={prop} identifier={props2[2]}/>
                     }
                   })}

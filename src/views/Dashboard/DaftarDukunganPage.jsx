@@ -17,6 +17,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import SelectedPendukungAction from "../../action/selected_pendukung_action";
 import DetailPendukung from "./DetailPendukung.jsx";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import DaftarPendukungTable from "../Main/DaftarPendukungTable.jsx";
 
 const styles = {
   cardCategoryWhite: {
@@ -158,27 +159,30 @@ class DaftarDukunganPage extends React.Component {
   render() {
     const { classes } = this.props;
     var data = this.state.pendukungs;
-    var displayedData = [];
+    var dataPendukung = [];
     var counter = 1;
     Object.keys(data).map((key) => {
       var pendukungs = data[key].pendukungs;
       for(var i = 0; i < pendukungs.length; i++) {
-        var temp = [];
-        temp.push(counter.toString());
-        temp.push(pendukungs[i].name);
-        temp.push(pendukungs[i].nik);
-        temp.push(pendukungs[i].phone);
-        temp.push(data[key].provinsi);
-        temp.push(data[key].kabupaten);
-        temp.push(data[key].kecamatan);
-        temp.push(data[key].tps);
+        var temporary = {};
+        temporary["id"] = counter.toString();
+        temporary["name"] = pendukungs[i].name;
+        temporary["nik"] = pendukungs[i].nik;
+        temporary["phone"] = pendukungs[i].phone;
+        temporary["provinsi"] = data[key].provinsi;
+        temporary["kabupaten"] = data[key].kabupaten;
+        temporary["kecamatan"] = data[key].kecamatan;
+        temporary["tps"] = data[key].tps;
         if(pendukungs[i].witness === true) {
-          temp.push("Ya")
+          temporary["witness"] = "Ya";
         } else {
-          temp.push("Tidak")
+          temporary["witness"] = "Tidak";
         }
-        temp.push(pendukungs[i].status.toString());
-        displayedData.push(temp);
+        temporary["status"] = pendukungs[i].status.toString();
+        temporary["calories"] = 120;
+        temporary["fat"] = 200;
+
+        dataPendukung.push(temporary);
         counter++;
       }
     })
@@ -211,12 +215,10 @@ class DaftarDukunganPage extends React.Component {
               </p>
             </CardHeader>
             <CardBody>
-              <Table
+              <DaftarPendukungTable
                 tableHeaderColor="primary"
                 tableHead={["ID", "Name", "NIK", "Phone", "Provinsi", "Kabupaten", "Kecamatan", "TPS", "Saksi"]}
-                tableData={displayedData}
-                withActionButtonDeletePendukung={true}
-                withActionButtonApprove={true}
+                dataPendukung={dataPendukung}
               />
             </CardBody>
           </Card>
