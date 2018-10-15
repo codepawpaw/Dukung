@@ -70,7 +70,6 @@ class CustomTable extends React.Component {
 
   deletePendukung() {
       var nik = this.state.selectedNik;
-      console.log(nik);
       var formData = new FormData();
       fetch('http://128.199.101.218:8181/pemilu/deletePendukung?nik='+nik, {
           method: 'DELETE',
@@ -83,7 +82,6 @@ class CustomTable extends React.Component {
           return response.json();
       })
       .then(dataResult => {
-        console.log(dataResult);
         window.location = "/daftar-dukungan";
       });
   }

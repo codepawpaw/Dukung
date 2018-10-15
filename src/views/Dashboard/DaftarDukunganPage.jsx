@@ -119,21 +119,6 @@ class DaftarDukunganPage extends React.Component {
             this.setState({ sendFailed: true, addPendukungInProgress: false });
           }
       })
-
-      // var xhr = new XMLHttpRequest();
-
-      // xhr.addEventListener("readystatechange", function () {
-      //   console.log(this.readyState);
-      //   console.log(this.responseText);
-
-      //   if (this.readyState === 4) {
-      //     console.log(this.responseText);
-      //   }
-      // });
-
-      // xhr.open("POST", "http://128.199.101.218:8181/pemilu/addPendukung", true);
-
-      // xhr.send(formData);
   }
 
   onChange(e) {
