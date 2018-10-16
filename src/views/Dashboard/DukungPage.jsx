@@ -174,13 +174,6 @@ class DukungPage extends React.Component {
                         id={"witness"}
                         value={this.state.checked}
                         />Daftar sebagai saksi
-                        {/* <CustomInput
-                            labelText="Witness"
-                            id="witness"
-                            formControlProps={{
-                                fullWidth: true
-                            }}
-                        /> */}
                         </GridItem>
                     </GridContainer>
                     {

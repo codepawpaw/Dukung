@@ -13,7 +13,6 @@ class SelectedPendukungReducer {
     switch(action.type) {
       case TYPE:
         return action.value
-        // return SelectedPendukungReducer.elements(state, action);
       default:
         return state;
     }
