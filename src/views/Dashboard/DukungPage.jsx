@@ -13,6 +13,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import HTTPRequestAdapter from "adapter/HTTPRequestAdapter.js";
+import PendukungModel from "models/PendukungModel.js";
 
 const styles = {
   cardCategoryWhite: {
@@ -36,7 +37,7 @@ const styles = {
 class DukungPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             file:null,
             checked: false,
             addPendukungInProgress: false
@@ -77,21 +78,17 @@ class DukungPage extends React.Component {
             nik: nik,
             phone: phone,
             witness: wt,
-            firstname: firstname
+            firstname: firstname,
+            uploadfile: this.uploadfile,
+            idcalon: this.state.profiles.idCalon
         });
     }
 
     addDukungan(data) {
-        var formData = new FormData();
-        formData.append('uploadfile', this.uploadfile);
-        formData.append('idcalon', this.state.profiles.idCalon);
-        formData.append('nik', data.nik);
-        formData.append('phone', data.phone);
-        formData.append('witness', data.witness);
-        formData.append('firstname', data.firstname);
+        const pendukungModel = new PendukungModel(data);
 
         const url = 'http://128.199.101.218:8181/pemilu/addPendukung';
-        const body = formData;
+        const body = pendukungModel.toFormData();
 
         HTTPRequestAdapter.post({ 
            url: url, 
