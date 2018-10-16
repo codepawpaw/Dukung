@@ -12,6 +12,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import HTTPRequestAdapter from "adapter/HTTPRequestAdapter.js";
 
 const styles = {
   cardCategoryWhite: {
@@ -52,17 +53,11 @@ class DukungPage extends React.Component {
     }
 
     getCalon(username) {
-        fetch('http://128.199.101.218:8181/pemilu/'+username, {
-            method: 'GET'
-        })
-        .then(response => {
-            return response.json();
-        })
-        .then(dataResult => {
+        HTTPRequestAdapter.get('http://128.199.101.218:8181/pemilu/'+username, (dataResult) => {
             this.name = dataResult.name;
             this.tingkat = dataResult.tingkat;
             this.setState({profiles: dataResult})
-        })
+        });
     }
 
     handleClick(event) {
