@@ -53,7 +53,7 @@ class DukungPage extends React.Component {
     }
 
     getCalon(username) {
-        HTTPRequestAdapter.get('http://128.199.101.218:8181/pemilu/'+username, (dataResult) => {
+        HTTPRequestAdapter.get({ url: 'http://128.199.101.218:8181/pemilu/'+username }, (dataResult) => {
             this.name = dataResult.name;
             this.tingkat = dataResult.tingkat;
             this.setState({profiles: dataResult})
@@ -90,15 +90,15 @@ class DukungPage extends React.Component {
         formData.append('witness', data.witness);
         formData.append('firstname', data.firstname);
 
-        const options = {
-            method: 'POST',
-            body: formData
-        };
+        const url = 'http://128.199.101.218:8181/pemilu/addPendukung';
+        const body = formData;
 
-        fetch('http://128.199.101.218:8181/pemilu/addPendukung', options)
-        .then(response => {
+        HTTPRequestAdapter.post({ 
+           url: url, 
+           body: body
+        }, (result) => {
             window.location= "/dukung/"+this.username;
-        })
+        });
     }
 
     onChange(e) {
