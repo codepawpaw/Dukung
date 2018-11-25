@@ -41,12 +41,21 @@ class DaftarPendukungTable extends React.Component {
        page: 0,
        rowsPerPage: 5,
        selectedName: "",
-       selectedNik: ""
+       selectedNik: "",
+       dataPendukung: props.dataPendukung
     };
 
+    this.incrSortByTps = false;
+    this.sortPendukungByTps = this.sortPendukungByTps.bind(this);
     this.clickDeletePendukung = this.clickDeletePendukung.bind(this);
     this.deletePendukung = this.deletePendukung.bind(this);
     this.hideDeleteAlert = this.hideDeleteAlert.bind(this);
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      dataPendukung: props.dataPendukung
+    })
   }
 
   clearAlertTimeout() {
@@ -92,6 +101,27 @@ class DaftarPendukungTable extends React.Component {
       });
   }
 
+  sortPendukungByTps() {
+    var dataPendukung;
+    if(this.incrSortByTps == false) {
+      dataPendukung = this.state.dataPendukung.sort(function(a, b) {
+        return ('' + a.tps).localeCompare(b.tps);
+      });
+
+      this.incrSortByTps = true;      
+    } else {
+      dataPendukung = this.state.dataPendukung.sort(function(a, b) {
+        return ('' + b.tps).localeCompare(a.tps);
+      });
+
+      this.incrSortByTps = false;      
+    }
+
+    this.setState({
+      dataPendukung: dataPendukung
+    })
+  }
+
   clickDeletePendukung(nik, name) {
     this.setState({ selectedNik: nik, selectedName: name });
     this.showNotification("tc");
@@ -121,7 +151,7 @@ class DaftarPendukungTable extends React.Component {
 
   render() {
     const { classes, tableHead, tableHeaderColor } = this.props;
-    const rows = this.props.dataPendukung;
+    const rows = this.state.dataPendukung;
     const { rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
     const messageAlert = "Apakah anda yakin akan menghapus "+ this.state.selectedName + " dari daftar pendukung ?"
@@ -144,14 +174,26 @@ class DaftarPendukungTable extends React.Component {
             <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
               <TableRow>
                 {tableHead.map((prop, key) => {
-                  return (
-                    <TableCell
-                      className={classes.tableCell + " " + classes.tableHeadCell}
-                      key={key}
-                    >
-                      {prop}
-                    </TableCell>
-                  );
+                  if(prop == "TPS") {
+                    return (
+                        <TableCell
+                          className={classes.tableCell + " " + classes.tableHeadCell}
+                          key={key}
+                          onClick={this.sortPendukungByTps.bind(this)}
+                        >
+                          {prop}
+                        </TableCell>
+                    );
+                  } else {
+                    return (
+                        <TableCell
+                          className={classes.tableCell + " " + classes.tableHeadCell}
+                          key={key}
+                        >
+                          {prop}
+                        </TableCell>
+                    );
+                  }
                 })}
               </TableRow>
             </TableHead>
@@ -169,7 +211,9 @@ class DaftarPendukungTable extends React.Component {
                     <TableCell classes={classes.tableCell}>{row.kabupaten}</TableCell>
                     <TableCell classes={classes.tableCell}>{row.kecamatan}</TableCell>
                     <TableCell classes={classes.tableCell}>{row.tps}</TableCell>
-                    <TableCell classes={classes.tableCell}>{row.witness}</TableCell>
+                    <TableCell classes={classes.tableCell}>
+                        {row.witness}
+                    </TableCell>
                     <TableCell>
                         <Button onClick={this.clickDeletePendukung.bind(this, row.nik, row.name)} color="danger">Delete</Button>
                     </TableCell>
