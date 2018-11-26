@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -11,7 +9,6 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Axios from "axios";
 import UsersAction from "../../action/users_action";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import CircularProgress from '@material-ui/core/CircularProgress';

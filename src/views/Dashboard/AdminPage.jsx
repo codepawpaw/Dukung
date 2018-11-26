@@ -12,8 +12,6 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
   cardCategoryWhite: {
