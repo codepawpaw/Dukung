@@ -49,15 +49,11 @@ class DaftarDukunganPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { pendukungs: [], sendFailed: false, checked: false, addPendukungInProgress: false, filterProvinsi: "*", filterKabupaten: "*", inProgress: true };
+    this.state = { pendukungs: [], filterProvinsi: "*", filterKabupaten: "*", inProgress: true };
     this.props = props;
 
-    this.onChange = this.onChange.bind(this);
     this.handleChangeOfFilterByProvinsi = this.handleChangeOfFilterByProvinsi.bind(this);
     this.handleChangeOfFilterByKabupaten = this.handleChangeOfFilterByKabupaten.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.sendFailed = false;
-    this.onChecked = this.onChecked.bind(this);
     this.closeDetailPendukung = this.closeDetailPendukung.bind(this);
 
     this.listOfProvinsi = {};
@@ -73,33 +69,6 @@ class DaftarDukunganPage extends React.Component {
 
   closeDetailPendukung() {
     this.props.showSelectedPendukung("");
-  }
-
-  onChecked() {
-    this.setState({ checked: !this.state.checked })
-  }
-
-  handleClick(event) {
-      this.setState({ addPendukungInProgress: true });
-
-      var nik = document.querySelector("#nik").value;
-      var phone = document.querySelector("#phone").value;
-      var witness = document.querySelector("#witness").value;
-      var address = document.querySelector("#address").value;
-      var firstname = document.querySelector("#firstname").value;
-      var wt = "0";
-
-      if(witness) {
-        wt = "1";
-      }
-      this.addDukungan({
-          uploadfile: this.state.file, 
-          nik: nik,
-          phone: phone,
-          witness: wt,
-          address: address,
-          firstname: firstname
-      });
   }
 
   filterPendukung(data, selectedProvinsi, selectedKabupaten) {
@@ -158,41 +127,6 @@ class DaftarDukunganPage extends React.Component {
     })
   }
 
-  addDukungan(data) {
-      var formData = new FormData();
-      formData.append('uploadfile', this.uploadfile);
-      formData.append('idcalon', "");
-      formData.append('nik', data.nik);
-      formData.append('phone', data.phone);
-      formData.append('address', data.address);
-      formData.append('witness', data.witness);
-      formData.append('firstname', data.firstname);
-
-      const options = {
-        method: 'POST',
-        body: formData,
-        headers: {
-            "token": sessionStorage.getItem("key"),
-        }
-      };
-
-      delete options.headers['Content-Type'];
-      fetch('http://128.199.101.218:8181/pemilu/addPendukung', options)
-      .then(response => {
-          if(response.ok == true && response.status == 200) {
-            window.location = "/daftar-dukungan";
-          } else {
-            this.sendFailed = true;
-            this.setState({ sendFailed: true, addPendukungInProgress: false });
-          }
-      })
-  }
-
-  onChange(e) {
-      this.uploadfile = e.target.files[0];
-      this.setState({file:e.target.files[0]})
-  }
-  
   getAllPendukung(callback) {
     fetch('http://128.199.101.218:8181/pemilu/getPendukungs', {
         method: 'GET',
