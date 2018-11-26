@@ -67,10 +67,10 @@ class DukungPage extends React.Component {
         var phone = document.querySelector("#phone").value;
         var witness = document.querySelector("#witness").value;
         var firstname = document.querySelector("#firstname").value;
-        var wt = "0";
+        var wt = "true";
 
         if(witness) {
-            wt = "1";
+            wt = "false";
         }
 
         this.addDukungan({
