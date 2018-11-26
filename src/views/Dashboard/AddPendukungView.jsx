@@ -1,6 +1,5 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -14,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import HTTPRequestAdapter from "adapter/HTTPRequestAdapter.js";
 import PendukungModel from "models/PendukungModel.js";
 import TextField from '@material-ui/core/TextField';
+import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 
 
 const styles = {
@@ -42,7 +42,8 @@ class AddPendukungView extends React.Component {
         this.state = {
             file:null,
             isWitness: false,
-            addPendukungInProgress: false
+            addPendukungInProgress: false,
+            addPendukungFailed: false
         };
 
         this.onChange = this.onChange.bind(this)
@@ -85,11 +86,27 @@ class AddPendukungView extends React.Component {
         const url = 'http://128.199.101.218:8181/pemilu/addPendukung';
         const body = pendukungModel.toFormData();
 
-        HTTPRequestAdapter.post({ 
-           url: url, 
-           body: body
-        }, (result) => {
-            window.location.href = window.location.href;
+        if(sessionStorage.getItem("key") == null) {
+            var options = {
+                url: url,
+                body: body
+            };
+        } else {
+            var options = {
+                url: url,
+                body: body,
+                headers: {
+                    "token": sessionStorage.getItem("key"),
+                }
+            };
+        }
+
+        HTTPRequestAdapter.post(options, (response) => {
+            if(response.result == true) {
+                window.location.href = window.location.href;
+            } else {
+                this.setState({ addPendukungFailed: true, addPendukungInProgress: false });
+            }
         });
     }
 
@@ -106,9 +123,15 @@ class AddPendukungView extends React.Component {
                 <GridItem xs={12} sm={12} md={8}>
                 <Card>
                     <CardHeader color="warning">
-                    <h4 className={classes.cardTitleWhite}>
-                        Ajukan Dukungan Kamu kepada {this.props.calon.name} untuk tingkat {this.props.calon.tingkat}
-                    </h4>
+                    {
+                        this.props.calon !== "" ? (
+                            <h4 className={classes.cardTitleWhite}>
+                                Ajukan Dukungan Kamu kepada {this.props.calon.name} untuk tingkat {this.props.calon.tingkat}
+                            </h4>
+                        ) : (
+                            <div/>
+                        )
+                    }
                     <p className={classes.cardCategoryWhite}>Mohon isi dengan benar</p>
                     </CardHeader>
                     <CardBody>
@@ -174,6 +197,15 @@ class AddPendukungView extends React.Component {
                         id={"witness"}
                         value={this.state.isWitness}
                         />Daftar sebagai saksi
+                        {
+                        this.state.addPendukungFailed ? (<SnackbarContent
+                            message={
+                            'Tambahkan pendukung gagal. Dimohon untuk cek data anda kembali'
+                            }
+                            close
+                            color="danger"
+                        />) : (<div/>)
+                        }
                         </GridItem>
                     </GridContainer>
                     {

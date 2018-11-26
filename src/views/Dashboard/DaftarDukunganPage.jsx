@@ -1,19 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Table from "components/Table/Table.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
-import Checkbox from "@material-ui/core/Checkbox";
 import SelectedPendukungAction from "../../action/selected_pendukung_action";
 import DetailPendukung from "./DetailPendukung.jsx";
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,7 +13,7 @@ import DaftarPendukungTable from "../Main/DaftarPendukungTable.jsx";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import TextField from '@material-ui/core/TextField';
+import AddPendukungView from "./AddPendukungView.jsx";
 
 const styles = {
   cardCategoryWhite: {
@@ -381,95 +373,7 @@ class DaftarDukunganPage extends React.Component {
             </CardBody>
           </Card>
           
-          <Card>
-            <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Tambahkan Pendukung</h4>
-              <p className={classes.cardCategoryWhite}>Tambahkan Lebih Banyak Pendukung Untuk Meningkatkan Kejayaan Indonesia</p>
-            </CardHeader>
-            <CardBody>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                <CustomInput
-                    labelText="Firstname"
-                    id="firstname"
-                    formControlProps={{
-                        fullWidth: true
-                    }}
-                />
-                </GridItem>
-            </GridContainer>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                <CustomInput
-                    labelText="NIK"
-                    id="nik"
-                    formControlProps={{
-                        fullWidth: true
-                    }}
-                />
-                </GridItem>
-            </GridContainer>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                    <form onSubmit={this.onFormSubmit}>
-                        <h3>Upload Photo</h3>
-                        <input type="file" id="afile" onChange={this.onChange} accept="image/*"/>
-                    </form>
-                </GridItem>
-            </GridContainer>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                <CustomInput
-                    labelText="Phone Number"
-                    id="phone"
-                    formControlProps={{
-                        fullWidth: true
-                    }}
-                />
-                </GridItem>
-            </GridContainer>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                <TextField
-                    id="address"
-                    label="Address"
-                    multiline
-                    rows="4"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                />
-                </GridItem>
-            </GridContainer>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                <Checkbox
-                  checked={this.state.checked}
-                  onChange={this.onChecked}
-                  id={"witness"}
-                  value={this.state.checked.toString()}
-                />Daftar sebagai saksi
-                {
-                  this.state.sendFailed ? (<SnackbarContent
-                    message={
-                      'Tambahkan pendukung gagal. Dimohon untuk cek data anda kembali'
-                    }
-                    close
-                    color="danger"
-                  />) : (<div/>)
-                }
-                </GridItem>
-            </GridContainer>
-            {
-              this.state.addPendukungInProgress ? (
-                <CircularProgress className={classes.progress} size={50} />
-               ) : (<div/>)
-            }
-            </CardBody>
-            <CardFooter>
-              <Button onClick={this.handleClick} color="primary">Tambahkan Pendukung</Button>
-            </CardFooter>
-          </Card>
+          <AddPendukungView calon="" />
         </GridItem>
       </GridContainer>
     );

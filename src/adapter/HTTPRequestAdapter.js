@@ -12,10 +12,18 @@ class HTTPRequestAdapter {
     }
 
     static post(data, result) {
-        fetch(data.url, {
+        const options = {
             method: 'POST',
-            body: data.body
-        })
+            body: data.body,
+            headers: data.headers
+        };
+
+        console.log(data.headers);
+        // if(typeof data.headers !== undefined) {
+        //     delete options.headers['Content-Type'];
+        // }
+        
+        fetch(data.url, options)
         .then(response => {
             return response.json();
         })
