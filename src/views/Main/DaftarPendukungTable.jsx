@@ -46,7 +46,6 @@ class DaftarPendukungTable extends React.Component {
     };
 
     this.incrSortByTps = false;
-    this.sortPendukungByTps = this.sortPendukungByTps.bind(this);
     this.clickDeletePendukung = this.clickDeletePendukung.bind(this);
     this.deletePendukung = this.deletePendukung.bind(this);
     this.hideDeleteAlert = this.hideDeleteAlert.bind(this);
@@ -101,24 +100,18 @@ class DaftarPendukungTable extends React.Component {
       });
   }
 
-  sortPendukungByTps() {
-    var dataPendukung;
-    if(this.incrSortByTps == false) {
-      dataPendukung = this.state.dataPendukung.sort(function(a, b) {
-        return ('' + a.tps).localeCompare(b.tps);
-      });
-
-      this.incrSortByTps = true;      
-    } else {
-      dataPendukung = this.state.dataPendukung.sort(function(a, b) {
-        return ('' + b.tps).localeCompare(a.tps);
-      });
-
-      this.incrSortByTps = false;      
-    }
-
-    this.setState({
-      dataPendukung: dataPendukung
+  groupBy( array , f )
+  {
+    var groups = {};
+    array.forEach( function( o )
+    {
+      var group = JSON.stringify( f(o) );
+      groups[group] = groups[group] || [];
+      groups[group].push( o );  
+    });
+    return Object.keys(groups).map( function( group )
+    {
+      return groups[group]; 
     })
   }
 
@@ -161,7 +154,7 @@ class DaftarPendukungTable extends React.Component {
         <div className={classes.tableWrapper}>
           <SnackbarWithConfirmation
             place="tc"
-            color="rose"
+            color="success"
             icon={AddAlert}
             message={messageAlert}
             open={this.state.tc}
@@ -174,26 +167,14 @@ class DaftarPendukungTable extends React.Component {
             <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
               <TableRow>
                 {tableHead.map((prop, key) => {
-                  if(prop == "TPS") {
-                    return (
-                        <TableCell
-                          className={classes.tableCell + " " + classes.tableHeadCell}
-                          key={key}
-                          onClick={this.sortPendukungByTps.bind(this)}
-                        >
-                          {prop}
-                        </TableCell>
-                    );
-                  } else {
-                    return (
-                        <TableCell
-                          className={classes.tableCell + " " + classes.tableHeadCell}
-                          key={key}
-                        >
-                          {prop}
-                        </TableCell>
-                    );
-                  }
+                  return (
+                      <TableCell
+                        className={classes.tableCell + " " + classes.tableHeadCell}
+                        key={key}
+                      >
+                        {prop}
+                      </TableCell>
+                  );
                 })}
               </TableRow>
             </TableHead>
