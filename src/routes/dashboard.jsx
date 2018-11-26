@@ -11,7 +11,6 @@ import DukungPage from "views/Dashboard/DukungPage.jsx";
 import AdminPage from "views/Dashboard/AdminPage.jsx";
 import DaftarDukunganPage from "views/Dashboard/DaftarDukunganPage.jsx";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
 
 const dashboardRoutes = [
   {
@@ -27,13 +26,6 @@ const dashboardRoutes = [
     navbarName: "Admin",
     icon: BubbleChart,
     component: AdminPage
-  },
-  {
-    path: "/user",
-    sidebarName: "Profile",
-    navbarName: "Profile",
-    icon: Person,
-    component: UserProfile
   },
   {
     path: "/daftar-dukungan",
