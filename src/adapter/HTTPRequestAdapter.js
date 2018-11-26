@@ -18,7 +18,6 @@ class HTTPRequestAdapter {
             headers: data.headers
         };
 
-        console.log(data.headers);
         // if(typeof data.headers !== undefined) {
         //     delete options.headers['Content-Type'];
         // }
