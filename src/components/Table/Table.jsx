@@ -13,7 +13,6 @@ import TableDetail from "./TableDetail.jsx";
 // core components
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle";
 import Button from "components/CustomButtons/Button.jsx";
-import SelectedPendukungAction from "../../action/selected_pendukung_action";
 import SnackbarWithConfirmation from "components/Snackbar/SnackbarWithConfirmation.jsx";
 
 class CustomTable extends React.Component {

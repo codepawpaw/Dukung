@@ -6,7 +6,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import SelectedPendukungAction from "../../action/selected_pendukung_action";
+import SelectedPendukungAction from "../../action/SelectedPendukungAction";
 import DetailPendukung from "./DetailPendukung.jsx";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DaftarPendukungTable from "../Main/DaftarPendukungTable.jsx";

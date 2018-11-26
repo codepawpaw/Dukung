@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Snack from "@material-ui/core/SnackbarContent";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
-import SelectedPendukungAction from "../../action/selected_pendukung_action";
+import SelectedPendukungAction from "../../action/SelectedPendukungAction";
 
 class DetailPendukung extends React.Component {
   constructor(props) {

@@ -9,7 +9,7 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import UsersAction from "../../action/users_action";
+import UsersAction from "../../action/UsersAction";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 

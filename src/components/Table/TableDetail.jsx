@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import TableCell from "@material-ui/core/TableCell";
-import SelectedPendukungAction from "../../action/selected_pendukung_action";
+import SelectedPendukungAction from "../../action/SelectedPendukungAction";
 
 class TableDetail extends React.Component {
     constructor(props) {
