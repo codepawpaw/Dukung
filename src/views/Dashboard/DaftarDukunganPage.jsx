@@ -21,6 +21,7 @@ import DaftarPendukungTable from "../Main/DaftarPendukungTable.jsx";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
 
 const styles = {
   cardCategoryWhite: {
@@ -92,6 +93,7 @@ class DaftarDukunganPage extends React.Component {
       var nik = document.querySelector("#nik").value;
       var phone = document.querySelector("#phone").value;
       var witness = document.querySelector("#witness").value;
+      var address = document.querySelector("#address").value;
       var firstname = document.querySelector("#firstname").value;
       var wt = "0";
 
@@ -103,6 +105,7 @@ class DaftarDukunganPage extends React.Component {
           nik: nik,
           phone: phone,
           witness: wt,
+          address: address,
           firstname: firstname
       });
   }
@@ -169,6 +172,7 @@ class DaftarDukunganPage extends React.Component {
       formData.append('idcalon', "");
       formData.append('nik', data.nik);
       formData.append('phone', data.phone);
+      formData.append('address', data.address);
       formData.append('witness', data.witness);
       formData.append('firstname', data.firstname);
 
@@ -421,6 +425,19 @@ class DaftarDukunganPage extends React.Component {
                     formControlProps={{
                         fullWidth: true
                     }}
+                />
+                </GridItem>
+            </GridContainer>
+            <GridContainer>
+                <GridItem xs={12} sm={12} md={5}>
+                <TextField
+                    id="address"
+                    label="Address"
+                    multiline
+                    rows="4"
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                 />
                 </GridItem>
             </GridContainer>

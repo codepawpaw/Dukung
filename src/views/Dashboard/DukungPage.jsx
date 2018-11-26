@@ -14,6 +14,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import HTTPRequestAdapter from "adapter/HTTPRequestAdapter.js";
 import PendukungModel from "models/PendukungModel.js";
+import TextField from '@material-ui/core/TextField';
 
 const styles = {
   cardCategoryWhite: {
@@ -65,6 +66,7 @@ class DukungPage extends React.Component {
         this.setState({ addPendukungInProgress: true });
         var nik = document.querySelector("#nik").value;
         var phone = document.querySelector("#phone").value;
+        var address = document.querySelector("#address").value;
         var witness = document.querySelector("#witness").value;
         var firstname = document.querySelector("#firstname").value;
         var wt = "true";
@@ -80,6 +82,7 @@ class DukungPage extends React.Component {
             witness: wt,
             firstname: firstname,
             uploadfile: this.uploadfile,
+            address: address,
             idcalon: this.state.profiles.idCalon
         });
     }
@@ -155,6 +158,19 @@ class DukungPage extends React.Component {
                             formControlProps={{
                                 fullWidth: true
                             }}
+                        />
+                        </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={5}>
+                        <TextField
+                            id="address"
+                            label="Address"
+                            multiline
+                            rows="4"
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
                         />
                         </GridItem>
                     </GridContainer>
