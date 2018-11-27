@@ -141,7 +141,6 @@ class DaftarPendukungTable extends React.Component {
     const { classes, tableHead, tableHeaderColor } = this.props;
     const rows = this.state.dataPendukung;
     const { rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
     const messageAlert = "Apakah anda yakin akan menghapus "+ this.state.selectedName + " dari daftar pendukung ?"
 
     return (

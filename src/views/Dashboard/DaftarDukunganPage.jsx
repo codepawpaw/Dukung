@@ -49,19 +49,22 @@ class DaftarDukunganPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { pendukungs: [], filterProvinsi: "*", filterKabupaten: "*", inProgress: true };
+    this.state = { pendukungs: [], filterProvinsi: "*", filterKabupaten: "*", filterKecamatan: "*", inProgress: true };
     this.props = props;
 
     this.handleChangeOfFilterByProvinsi = this.handleChangeOfFilterByProvinsi.bind(this);
     this.handleChangeOfFilterByKabupaten = this.handleChangeOfFilterByKabupaten.bind(this);
+    this.handleChangeOfFilterByKecamatan = this.handleChangeOfFilterByKecamatan.bind(this);
     this.closeDetailPendukung = this.closeDetailPendukung.bind(this);
 
     this.listOfProvinsi = {};
     this.listOfKabupaten = {};
+    this.listOfKecamatan = {};
 
     this.getAllPendukung((result) => {
       this.getListOfProvinsi(result);
       this.getListOfKabupaten(result);
+      this.getListOfKecamatan(result);
       var pendukungs = this.sortProperties(result, "tps", false);
       this.setState({ pendukungs: pendukungs, inProgress: false });
     });
@@ -71,23 +74,39 @@ class DaftarDukunganPage extends React.Component {
     this.props.showSelectedPendukung("");
   }
 
-  filterPendukung(data, selectedProvinsi, selectedKabupaten) {
+  filterPendukung(data, selectedProvinsi, selectedKabupaten, selectedKecamatan) {
     var result = [];
 
     for(var i = 0; i < data.length; i++) {
-      if(selectedProvinsi == "*" && selectedKabupaten != "*") {
+      if(selectedProvinsi == "*" && selectedKabupaten != "*" && selectedKecamatan == "*") {
         if(data[i][0].kabupaten == selectedKabupaten) {
           result.push(data[i]);
         }
-      } else if(selectedProvinsi != "*" && selectedKabupaten == "*") {
+      } else if(selectedProvinsi != "*" && selectedKabupaten == "*" && selectedKecamatan == "*") {
         if(data[i][0].provinsi == selectedProvinsi) {
           result.push(data[i]);
         }
-      } else if(selectedProvinsi != "*" && selectedKabupaten != "*") {
+      } else if(selectedProvinsi == "*" && selectedKabupaten == "*" && selectedKecamatan != "*") {
+        if(data[i][0].kecamatan == selectedKecamatan) {
+          result.push(data[i]);
+        }
+      } else if(selectedProvinsi != "*" && selectedKabupaten !="*" && selectedKecamatan == "*") {
         if(data[i][0].provinsi == selectedProvinsi && data[i][0].kabupaten == selectedKabupaten) {
           result.push(data[i]);
         }
-      } else if(selectedProvinsi == "*" && selectedKabupaten == "*") {
+      } else if(selectedProvinsi == "*" && selectedKabupaten != "*" && selectedKecamatan != "*") {
+        if(data[i][0].kabupaten == selectedKabupaten && data[i][0].kecamatan == selectedKecamatan) {
+          result.push(data[i]);
+        }
+      } else if(selectedProvinsi != "*" && selectedKabupaten == "*" && selectedKecamatan != "*") {
+        if(data[i][0].provinsi == selectedProvinsi && data[i][0].kecamatan == selectedKecamatan) {
+          result.push(data[i]);
+        }
+      } else if(selectedProvinsi != "*" && selectedKabupaten != "*" && selectedKecamatan != "*") {
+        if(data[i][0].provinsi == selectedProvinsi && data[i][0].kabupaten == selectedKabupaten && data[i][0].kecamatan == selectedKecamatan) {
+          result.push(data[i]);
+        }
+      } else if(selectedProvinsi == "*" && selectedKabupaten == "*" && selectedKecamatan == "*") {
         result.push(data[i]);
       }
     }
@@ -96,6 +115,7 @@ class DaftarDukunganPage extends React.Component {
       pendukungs: result,
       filterKabupaten: selectedKabupaten,
       filterProvinsi: selectedProvinsi,
+      filterKecamatan: selectedKecamatan,
       inProgress: false
     })
   }
@@ -109,7 +129,7 @@ class DaftarDukunganPage extends React.Component {
       this.getListOfProvinsi(result);
       pendukungs = this.sortProperties(result, "tps", false);
 
-      this.filterPendukung(pendukungs, event.target.value, this.state.filterKabupaten);
+      this.filterPendukung(pendukungs, event.target.value, this.state.filterKabupaten, this.state.filterKecamatan);
     })
   }
 
@@ -123,9 +143,24 @@ class DaftarDukunganPage extends React.Component {
       this.getListOfKabupaten(result);
       pendukungs = this.sortProperties(result, "tps", false);
 
-      this.filterPendukung(pendukungs, this.state.filterProvinsi, event.target.value);
+      this.filterPendukung(pendukungs, this.state.filterProvinsi, event.target.value, this.state.filterKecamatan);
     })
   }
+  
+  handleChangeOfFilterByKecamatan(event) {
+    var pendukungs;
+    this.setState({
+      inProgress: true
+    });
+
+    this.getAllPendukung(result => {
+      this.getListOfKecamatan(result);
+      pendukungs = this.sortProperties(result, "tps", false);
+
+      this.filterPendukung(pendukungs, this.state.filterProvinsi, this.state.filterKabupaten, event.target.value);
+    })
+  }
+  
 
   getAllPendukung(callback) {
     fetch('http://128.199.101.218:8181/pemilu/getPendukungs', {
@@ -157,6 +192,16 @@ class DaftarDukunganPage extends React.Component {
       if(data.hasOwnProperty(key)) {
         if(!this.listOfKabupaten.hasOwnProperty([data[key].kabupaten])) {
           this.listOfKabupaten[data[key].kabupaten] = data[key].kabupaten;
+        }
+      }
+    }
+  }
+
+  getListOfKecamatan(data) {
+    for(var key in data) {
+      if(data.hasOwnProperty(key)) {
+        if(!this.listOfKecamatan.hasOwnProperty([data[key].kecamatan])) {
+          this.listOfKecamatan[data[key].kecamatan] = data[key].kecamatan;
         }
       }
     }
@@ -293,6 +338,33 @@ class DaftarDukunganPage extends React.Component {
               </Select>
               <br/>
               <br/>
+
+              <InputLabel shrink htmlFor="age-label-placeholder">
+                Filter By Kecamatan
+              </InputLabel>
+
+              <br/>
+              <Select
+                value={this.state.filterKecamatan}
+                onChange={this.handleChangeOfFilterByKecamatan}
+                displayEmpty
+                name="FilterKecamatan"
+                className={classes.selectEmpty}
+              >
+                <MenuItem value="*"><em>All Kecamatan</em></MenuItem>
+                {
+                  Object.keys(this.listOfKecamatan).map( (key, index) => {
+                      return (
+                          <MenuItem value={this.listOfKecamatan[key]} key={key}>
+                              {this.listOfKecamatan[key]}
+                          </MenuItem>
+                      )
+                  })
+                }
+              </Select>
+              <br/>
+              <br/>
+
               {
                 this.state.inProgress ? (
                     <CircularProgress className={classes.progress} size={50} />
