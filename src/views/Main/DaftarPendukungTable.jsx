@@ -187,6 +187,7 @@ class DaftarPendukungTable extends React.Component {
                     <TableCell classes={classes.tableCell}>{row.kabupaten}</TableCell>
                     <TableCell classes={classes.tableCell}>{row.kecamatan}</TableCell>
                     <TableCell classes={classes.tableCell}>{row.tps}</TableCell>
+                    <TableCell classes={classes.tableCell}>{row.address}</TableCell>
                     <TableCell classes={classes.tableCell}>
                         {row.witness}
                     </TableCell>
