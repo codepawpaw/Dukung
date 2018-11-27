@@ -10,6 +10,7 @@ class PendukungModel {
         this.tps = data.tps;
         this.witness = data.witness;
         this.uploadfile = data.uploadfile;
+        this.address = data.address;
     }   
 
     toFormData() {
@@ -17,6 +18,7 @@ class PendukungModel {
         formData.append('uploadfile', this.uploadfile);
         formData.append('idcalon', this.idcalon);
         formData.append('nik', this.nik);
+        formData.append('address', this.address);
         formData.append('phone', this.phone);
         formData.append('witness', this.witness);
         formData.append('firstname', this.firstname);
