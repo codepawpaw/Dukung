@@ -62,10 +62,10 @@ class AddPendukungView extends React.Component {
         var address = document.querySelector("#address").value;
         var witness = document.querySelector("#witness").value;
         var firstname = document.querySelector("#firstname").value;
-        var wt = "true";
+        var wt = "0";
 
-        if(witness) {
-            wt = "false";
+        if(witness == "true") {
+            wt = "1";
         }
 
         this.addDukungan({
