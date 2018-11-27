@@ -160,7 +160,7 @@ class AddPendukungView extends React.Component {
                     <GridContainer>
                         <GridItem xs={12} sm={12} md={5}>
                             <form onSubmit={this.onFormSubmit}>
-                                <h3>Upload Photo</h3>
+                                <h3>Upload Photo KTP</h3>
                                 <input type="file" onChange={this.onChange} />
                             </form>
                         </GridItem>
