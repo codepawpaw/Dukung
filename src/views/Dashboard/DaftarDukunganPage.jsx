@@ -269,6 +269,7 @@ class DaftarDukunganPage extends React.Component {
         temporary["provinsi"] = data[j][0].provinsi;
         temporary["kabupaten"] = data[j][0].kabupaten;
         temporary["kecamatan"] = data[j][0].kecamatan;
+        temporary["kelurahan"] = data[j][0].kelurahan;
         temporary["tps"] = data[j][0].tps;
         if(pendukungs[i].witness === true) {
           temporary["witness"] = "Ya";
@@ -423,7 +424,7 @@ class DaftarDukunganPage extends React.Component {
                 ( 
                   <DaftarPendukungTable
                     tableHeaderColor="primary"
-                    tableHead={["ID", "Name", "NIK", "Phone", "Provinsi", "Kabupaten", "Kecamatan", "TPS", "Address", "Saksi"]}
+                    tableHead={["ID", "Name", "NIK", "Phone", "Provinsi", "Kabupaten", "Kecamatan", "Kelurahan", "TPS", "Address", "Saksi"]}
                     dataPendukung={dataPendukung}
                   /> 
                 )

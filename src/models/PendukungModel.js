@@ -11,6 +11,7 @@ class PendukungModel {
         this.witness = data.witness;
         this.uploadfile = data.uploadfile;
         this.address = data.address;
+        this.kelurahan = data.kelurahan;
     }   
 
     toFormData() {
