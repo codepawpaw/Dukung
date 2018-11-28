@@ -50,24 +50,27 @@ class DaftarDukunganPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { pendukungs: [], filterProvinsi: "*", filterKabupaten: "*", filterKecamatan: "*", filterTps: "*", inProgress: true };
+    this.state = { pendukungs: [], filterProvinsi: "*", filterKabupaten: "*", filterKecamatan: "*", filterKelurahan: "*", filterTps: "*", inProgress: true };
     this.props = props;
 
     this.handleChangeOfFilterByProvinsi = this.handleChangeOfFilterByProvinsi.bind(this);
     this.handleChangeOfFilterByKabupaten = this.handleChangeOfFilterByKabupaten.bind(this);
     this.handleChangeOfFilterByKecamatan = this.handleChangeOfFilterByKecamatan.bind(this);
+    this.handleChangeOfFilterByKelurahan = this.handleChangeOfFilterByKelurahan.bind(this);
     this.handleChangeOfFilterByTPS = this.handleChangeOfFilterByTPS.bind(this);
     this.closeDetailPendukung = this.closeDetailPendukung.bind(this);
 
     this.listOfProvinsi = {};
     this.listOfKabupaten = {};
     this.listOfKecamatan = {};
+    this.listOfKelurahan = {};
     this.listOfTps = {};
 
     this.getAllPendukung((result) => {
       this.getListOfProvinsi(result);
       this.getListOfKabupaten(result);
       this.getListOfKecamatan(result);
+      this.getListOfKelurahan(result);
       this.getListOfTps(result);
       var pendukungs = this.sortProperties(result, "tps", false);
       this.setState({ pendukungs: pendukungs, inProgress: false });
@@ -78,14 +81,14 @@ class DaftarDukunganPage extends React.Component {
     this.props.showSelectedPendukung("");
   }
 
-  filterPendukung(data, selectedProvinsi, selectedKabupaten, selectedKecamatan, selectedTps) {
+  filterPendukung(data, selectedProvinsi, selectedKabupaten, selectedKecamatan, selectedTps, selectedKelurahan) {
     var result = [];
 
     for(var i = 0; i < data.length; i++) {
       var isAllowed =  true;
       if(selectedProvinsi != "*") {
         if(data[i][0].provinsi != selectedProvinsi) {
-          isAllowed = false;
+          isAllowed = false
         }
       }
 
@@ -97,6 +100,12 @@ class DaftarDukunganPage extends React.Component {
 
       if(selectedKecamatan != "*") {
         if(data[i][0].kecamatan != selectedKecamatan) {
+          isAllowed = false;
+        }
+      }
+
+      if(selectedKelurahan != "*") {
+        if(data[i][0].kelurahan != selectedKelurahan) {
           isAllowed = false;
         }
       }
@@ -117,6 +126,7 @@ class DaftarDukunganPage extends React.Component {
       filterKabupaten: selectedKabupaten,
       filterProvinsi: selectedProvinsi,
       filterKecamatan: selectedKecamatan,
+      filterKelurahan: selectedKelurahan,
       filterTps: selectedTps,
       inProgress: false
     })
@@ -131,7 +141,7 @@ class DaftarDukunganPage extends React.Component {
       this.getListOfProvinsi(result);
       pendukungs = this.sortProperties(result, "tps", false);
 
-      this.filterPendukung(pendukungs, event.target.value, this.state.filterKabupaten, this.state.filterKecamatan, this.state.filterTps);
+      this.filterPendukung(pendukungs, event.target.value, this.state.filterKabupaten, this.state.filterKecamatan, this.state.filterTps, this.state.filterKelurahan);
     })
   }
 
@@ -145,7 +155,7 @@ class DaftarDukunganPage extends React.Component {
       this.getListOfKabupaten(result);
       pendukungs = this.sortProperties(result, "tps", false);
 
-      this.filterPendukung(pendukungs, this.state.filterProvinsi, event.target.value, this.state.filterKecamatan, this.state.filterTps);
+      this.filterPendukung(pendukungs, this.state.filterProvinsi, event.target.value, this.state.filterKecamatan, this.state.filterTps, this.state.filterKelurahan);
     })
   }
   
@@ -159,7 +169,21 @@ class DaftarDukunganPage extends React.Component {
       this.getListOfKecamatan(result);
       pendukungs = this.sortProperties(result, "tps", false);
 
-      this.filterPendukung(pendukungs, this.state.filterProvinsi, this.state.filterKabupaten, event.target.value, this.state.filterTps);
+      this.filterPendukung(pendukungs, this.state.filterProvinsi, this.state.filterKabupaten, event.target.value, this.state.filterTps, this.state.filterKelurahan);
+    })
+  }
+
+  handleChangeOfFilterByKelurahan(event) {
+    var pendukungs;
+    this.setState({
+      inProgress: true
+    });
+
+    this.getAllPendukung(result => {
+      this.getListOfKelurahan(result);
+      pendukungs = this.sortProperties(result, "tps", false);
+
+      this.filterPendukung(pendukungs, this.state.filterProvinsi, this.state.filterKabupaten, this.state.filterKecamatan, this.state.filterTps, event.target.value);
     })
   }
   
@@ -173,7 +197,7 @@ class DaftarDukunganPage extends React.Component {
       this.getListOfTps(result);
       pendukungs = this.sortProperties(result, "tps", false);
 
-      this.filterPendukung(pendukungs, this.state.filterProvinsi, this.state.filterKabupaten, this.state.filterKecamatan, event.target.value);
+      this.filterPendukung(pendukungs, this.state.filterProvinsi, this.state.filterKabupaten, this.state.filterKecamatan, event.target.value, this.state.filterKelurahan);
     })
   }
 
@@ -217,6 +241,16 @@ class DaftarDukunganPage extends React.Component {
       if(data.hasOwnProperty(key)) {
         if(!this.listOfKecamatan.hasOwnProperty([data[key].kecamatan])) {
           this.listOfKecamatan[data[key].kecamatan] = data[key].kecamatan;
+        }
+      }
+    }
+  }
+
+  getListOfKelurahan(data) {
+    for(var key in data) {
+      if(data.hasOwnProperty(key)) {
+        if(!this.listOfKelurahan.hasOwnProperty([data[key].kelurahan])) {
+          this.listOfKelurahan[data[key].kelurahan] = data[key].kelurahan;
         }
       }
     }
@@ -383,6 +417,32 @@ class DaftarDukunganPage extends React.Component {
                       return (
                           <MenuItem value={this.listOfKecamatan[key]} key={key}>
                               {this.listOfKecamatan[key]}
+                          </MenuItem>
+                      )
+                  })
+                }
+              </Select>
+              <br/>
+              <br/>
+
+              <InputLabel shrink htmlFor="age-label-placeholder">
+                Filter By Kelurahan
+              </InputLabel>
+
+              <br/>
+              <Select
+                value={this.state.filterKelurahan}
+                onChange={this.handleChangeOfFilterByKelurahan}
+                displayEmpty
+                name="FilterKelurahan"
+                className={classes.selectEmpty}
+              >
+                <MenuItem value="*"><em>All Kelurahan</em></MenuItem>
+                {
+                  Object.keys(this.listOfKelurahan).map( (key, index) => {
+                      return (
+                          <MenuItem value={this.listOfKelurahan[key]} key={key}>
+                              {this.listOfKelurahan[key]}
                           </MenuItem>
                       )
                   })
