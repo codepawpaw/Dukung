@@ -14,7 +14,7 @@ import HTTPRequestAdapter from "adapter/HTTPRequestAdapter.js";
 import PendukungModel from "models/PendukungModel.js";
 import TextField from '@material-ui/core/TextField';
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
-
+import ApiConfiguration from "configuration/ApiConfiguration.js";
 
 const styles = {
   cardCategoryWhite: {
@@ -83,7 +83,7 @@ class AddPendukungView extends React.Component {
     addDukungan(data) {
         const pendukungModel = new PendukungModel(data);
 
-        const url = 'http://128.199.101.218:8181/pemilu/addPendukung';
+        const url = ApiConfiguration.url() + '/pemilu/addPendukung';
         const body = pendukungModel.toFormData();
 
         if(sessionStorage.getItem("key") == null) {

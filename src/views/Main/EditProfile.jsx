@@ -12,6 +12,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import UsersAction from "../../action/UsersAction";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
+import ApiConfiguration from "../../configuration/ApiConfiguration";
 
 const styles = {
   cardCategoryWhite: {
@@ -61,7 +62,7 @@ class EditProfile extends React.Component {
             "newpassword": auth.newpassword
         });
         
-        fetch('http://128.199.101.218:8181/pemilu/changePassword', {
+        fetch(ApiConfiguration.url() + '/pemilu/changePassword', {
             method: 'POST',
             body: data,
             headers: {

@@ -17,6 +17,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+ADD . /usr/src/app/
+
 EXPOSE 3000
 CMD [ "yarn", "build" ]
 CMD [ "yarn", "start" ]

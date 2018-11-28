@@ -14,6 +14,7 @@ import SnackbarWithConfirmation from "components/Snackbar/SnackbarWithConfirmati
 import AddAlert from "@material-ui/icons/AddAlert";
 import TableDetail from "components/Table/TableDetail.jsx";
 import TablePaginationActionsWrapped from "components/Table/TablePaginationAction.jsx";
+import ApiConfiguration from '../../configuration/ApiConfiguration';
 
 const styles = theme => ({
   root: {
@@ -63,7 +64,7 @@ class DaftarPendukungTable extends React.Component {
   }
 
   approvePendukung(nik) {
-      fetch('http://128.199.101.218:8181/pemilu/confirmPendukung?nik='+nik, {
+      fetch(ApiConfiguration.url() + '/pemilu/confirmPendukung?nik='+nik, {
           method: 'GET',
           headers: {
             "token": sessionStorage.getItem("key")
@@ -80,7 +81,7 @@ class DaftarPendukungTable extends React.Component {
   deletePendukung() {
       var nik = this.state.selectedNik;
       var formData = new FormData();
-      fetch('http://128.199.101.218:8181/pemilu/deletePendukung?nik='+nik, {
+      fetch(ApiConfiguration.url() + '/pemilu/deletePendukung?nik='+nik, {
           method: 'DELETE',
           body: formData,
           headers: {

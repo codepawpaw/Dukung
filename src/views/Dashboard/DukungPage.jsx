@@ -1,6 +1,7 @@
 import React from "react";
 import HTTPRequestAdapter from "adapter/HTTPRequestAdapter.js";
 import AddPendukungView from "./AddPendukungView.jsx";
+import ApiConfiguration from "configuration/ApiConfiguration.js";
 
 class DukungPage extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class DukungPage extends React.Component {
     }
 
     getCalon(username) {
-        HTTPRequestAdapter.get({ url: 'http://128.199.101.218:8181/pemilu/'+username }, (dataResult) => {
+        HTTPRequestAdapter.get({ url: ApiConfiguration.url() + '/pemilu/'+username }, (dataResult) => {
             this.setState({ calon: { name: dataResult.name, tingkat: dataResult.tingkat, id: dataResult.idCalon } })
         });
     }

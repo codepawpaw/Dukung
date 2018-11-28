@@ -5,6 +5,7 @@ import Snack from "@material-ui/core/SnackbarContent";
 import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
 import SelectedPendukungAction from "../../action/SelectedPendukungAction";
+import ApiConfiguration from "../../configuration/ApiConfiguration";
 
 class DetailPendukung extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class DetailPendukung extends React.Component {
   }
 
   getDetailPendukung() {
-    fetch('http://128.199.101.218:8181/pemilu/getPendukung?nik='+this.props.nik, {
+    fetch(ApiConfiguration.url() + '/pemilu/getPendukung?nik='+this.props.nik, {
         method: 'GET',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         headers: {
           "token": sessionStorage.getItem("key")

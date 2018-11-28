@@ -12,6 +12,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import UsersAction from "../../action/UsersAction";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ApiConfiguration from "../../configuration/ApiConfiguration";
 
 const styles = {
   cardCategoryWhite: {
@@ -61,7 +62,7 @@ class LoginPage extends React.Component {
             "password": auth.password
         });
         
-        fetch('http://128.199.101.218:8181/pemilu/login', {
+        fetch(ApiConfiguration.url() + '/pemilu/login', {
             method: 'POST',
             body: data
         })

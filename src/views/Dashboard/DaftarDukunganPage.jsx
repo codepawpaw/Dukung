@@ -14,6 +14,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import AddPendukungView from "./AddPendukungView.jsx";
+import ApiConfiguration from "../../configuration/ApiConfiguration";
 
 const styles = {
   cardCategoryWhite: {
@@ -177,7 +178,7 @@ class DaftarDukunganPage extends React.Component {
   }
 
   getAllPendukung(callback) {
-    fetch('http://128.199.101.218:8181/pemilu/getPendukungs', {
+    fetch(ApiConfiguration.url() + '/pemilu/getPendukungs', {
         method: 'GET',
         headers: {
           "token": sessionStorage.getItem("key")

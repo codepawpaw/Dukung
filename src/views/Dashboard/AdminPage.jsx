@@ -12,6 +12,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Button from '@material-ui/core/Button';
+import ApiConfiguration from "configuration/ApiConfiguration.js";
 
 const styles = {
   cardCategoryWhite: {
@@ -69,7 +70,7 @@ class AdminPage extends React.Component {
     }
 
     getUser() {
-      fetch('http://128.199.101.218:8181/pemilu/getUsers', {
+      fetch(ApiConfiguration.url() + '/pemilu/getUsers', {
           method: 'GET',
           headers: {
             "token": sessionStorage.getItem("key")
@@ -84,7 +85,7 @@ class AdminPage extends React.Component {
     }
 
     deleteUser(userId) {
-      fetch('http://128.199.101.218:8181/pemilu/deleteUser?id='+userId, {
+      fetch(ApiConfiguration.url() + '/pemilu/deleteUser?id='+userId, {
           method: 'GET',
           headers: {
             "token": sessionStorage.getItem("key")
@@ -106,7 +107,7 @@ class AdminPage extends React.Component {
             "password": user.password
         };
 
-        fetch('http://128.199.101.218:8181/pemilu/addUser', {
+        fetch(ApiConfiguration.url() + '/pemilu/addUser', {
             method: 'POST',
             headers: {
               "token": sessionStorage.getItem("key")

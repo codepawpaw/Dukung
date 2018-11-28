@@ -20,6 +20,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import ApiConfiguration from "configuration/ApiConfiguration";
 
 import {
   dailySalesChart
@@ -52,7 +53,7 @@ class Dashboard extends React.Component {
   };
 
   getAllPendukung() {
-    fetch('http://128.199.101.218:8181/pemilu/getPendukungs', {
+    fetch(ApiConfiguration.url() + '/pemilu/getPendukungs', {
         method: 'GET',
         headers: {
           "token": sessionStorage.getItem("key")
