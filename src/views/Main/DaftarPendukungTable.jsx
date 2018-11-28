@@ -35,7 +35,7 @@ class DaftarPendukungTable extends React.Component {
 
     this.state = {
        page: 0,
-       rowsPerPage: 5,
+       rowsPerPage: 100,
        selectedName: "",
        selectedNik: "",
        dataPendukung: props.dataPendukung
@@ -215,6 +215,7 @@ class DaftarPendukungTable extends React.Component {
                   count={rows.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
+                  rowsPerPageOptions={[100,200]}
                   onChangePage={this.handleChangePage}
                   onChangeRowsPerPage={this.handleChangeRowsPerPage}
                   ActionsComponent={TablePaginationActionsWrapped}
