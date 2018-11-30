@@ -75,12 +75,14 @@ class LoginPage extends React.Component {
                 const userData = {
                     username: dataResult.username,
                     tingkat: dataResult.tingkat,
-                    role: dataResult.role
+                    role: dataResult.role,
+                    avatarUrl: dataResult.avatarUrl
                 }
 
                 this.props.saveUser(userData);
 
                 sessionStorage.setItem("key", this.token);
+                sessionStorage.setItem("avatarUrl", userData.avatarUrl);
 
                 if(dataResult.role === "ADMIN") {
                     sessionStorage.setItem("admin", "true");
