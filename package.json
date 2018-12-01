@@ -43,7 +43,7 @@
   },
   "scripts": {
     "provision": "docker build -t pantausuara .; docker run -e REACT_APP_API_URL=http://128.199.101.218:8181 -p 3000:3000 -d pantausuara",
-    "provision:production": "docker build -t pantausuara .; docker run -e REACT_APP_API_URL=http://s1.api.pantausuara.com -p 4000:4000 -d pantausuara",
+    "provision:production": "docker build -t pantausuara .; docker run -e REACT_APP_API_URL=http://s1.api.pantausuara.com -p 3000:3000 -d pantausuara",
     "start:dev": "REACT_APP_API_URL=http://128.199.101.218:8181 react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
