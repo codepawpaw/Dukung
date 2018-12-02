@@ -38,10 +38,20 @@ class LoginPage extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.onClickAlert = this.onClickAlert.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.state = { loginFailed: false, loginInProgress: false };
 
         if (typeof this.props.saveUser === "undefined") {
             this.props.saveUser = () => {};
+        }
+    }
+
+    handleKeyPress(event) {
+        if(event.key == "Enter") {
+            this.setState({ loginInProgress: true });
+            var username = document.querySelector("#email").value;
+            var password = document.querySelector("#password").value;
+            this.login({username: username, password: password});
         }
     }
 
@@ -119,7 +129,7 @@ class LoginPage extends React.Component {
                         />
                         </GridItem>
                     </GridContainer>
-                    <GridContainer>
+                    <GridContainer onKeyPress={this.handleKeyPress}>
                         <GridItem xs={12} sm={12} md={6}>
                         <CustomInput
                             labelText="Password"
