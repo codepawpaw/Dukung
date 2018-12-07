@@ -328,6 +328,8 @@ class DaftarDukunganPage extends React.Component {
       }
     }
 
+    var role = sessionStorage.getItem("role").toLocaleLowerCase()
+
     if(this.props.selectedPendukung.length > 0) {
       return (
         <div onClick={this.closeDetailPendukung}>
@@ -359,6 +361,7 @@ class DaftarDukunganPage extends React.Component {
                   Daftar dibawah ini menampilkan deretan orang yang sudah mendukung anda
                 </p>
               </CardHeader>
+              
               <CardBody>
                 <InputLabel shrink htmlFor="age-label-placeholder">
                   Filter By Provinsi
@@ -386,31 +389,33 @@ class DaftarDukunganPage extends React.Component {
                 <br/>
                 <br/>
 
-                <InputLabel shrink htmlFor="age-label-placeholder">
-                  Filter By Kabupaten
-                </InputLabel>
+                role == "dprd1" || role == "dprri" || role == "dpd" || role == "ri" ? ( 
+                  <InputLabel shrink htmlFor="age-label-placeholder">
+                    Filter By Kabupaten
+                  </InputLabel>
 
-                <br/>
-                <Select
-                  value={this.state.filterKabupaten}
-                  onChange={this.handleChangeOfFilterByKabupaten}
-                  displayEmpty
-                  name="FilterKabupaten"
-                  className={classes.selectEmpty}
-                >
-                  <MenuItem value="*"><em>All Kabupaten</em></MenuItem>
-                  {
-                    Object.keys(this.listOfKabupaten).map( (key, index) => {
-                        return (
-                            <MenuItem value={this.listOfKabupaten[key]} key={key}>
-                                {this.listOfKabupaten[key]}
-                            </MenuItem>
-                        )
-                    })
-                  }
-                </Select>
-                <br/>
-                <br/>
+                  <br/>
+                  <Select
+                    value={this.state.filterKabupaten}
+                    onChange={this.handleChangeOfFilterByKabupaten}
+                    displayEmpty
+                    name="FilterKabupaten"
+                    className={classes.selectEmpty}
+                  >
+                    <MenuItem value="*"><em>All Kabupaten</em></MenuItem>
+                    {
+                      Object.keys(this.listOfKabupaten).map( (key, index) => {
+                          return (
+                              <MenuItem value={this.listOfKabupaten[key]} key={key}>
+                                  {this.listOfKabupaten[key]}
+                              </MenuItem>
+                          )
+                      })
+                    }
+                  </Select>
+                  <br/>
+                  <br/>
+                ) : (<div/>)
 
                 <InputLabel shrink htmlFor="age-label-placeholder">
                   Filter By Kecamatan
