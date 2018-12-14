@@ -293,7 +293,7 @@ class DaftarDukunganPage extends React.Component {
     });
 
     return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
-}
+  }
 
   render() {
     const { classes } = this.props;
@@ -345,6 +345,37 @@ class DaftarDukunganPage extends React.Component {
       )
     }
 
+    var kabupatenFilterMenu = <div/>
+
+    if(role == "dprd1" || role == "dprri" || role == "dpd" || role == "ri") {
+          kabupatenFilterMenu = (
+          <InputLabel shrink htmlFor="age-label-placeholder"> + 
+            Filter By Kabupaten + 
+          </InputLabel> +
+          <br/> +
+          <Select 
+            value={this.state.filterKabupaten}
+            onChange={this.handleChangeOfFilterByKabupaten}
+            displayEmpty
+            name="FilterKabupaten"
+            className={classes.selectEmpty}
+          > +
+            <MenuItem value="*"><em>All Kabupaten</em></MenuItem> +
+            { 
+              Object.keys(this.listOfKabupaten).map( (key, index) => { 
+                  return (
+                      <MenuItem value={this.listOfKabupaten[key]} key={key}>
+                          {this.listOfKabupaten[key]}
+                      </MenuItem>
+                  ) 
+              }) 
+            } +
+          </Select> +
+          <br/> +
+          <br/> 
+          )
+    }
+
     return (
       <GridContainer>
         {
@@ -389,34 +420,8 @@ class DaftarDukunganPage extends React.Component {
                 <br/>
                 <br/>
 
-                role == "dprd1" || role == "dprri" || role == "dpd" || role == "ri" ? ( 
-                  <InputLabel shrink htmlFor="age-label-placeholder">
-                    Filter By Kabupaten
-                  </InputLabel>
-
-                  <br/>
-                  <Select
-                    value={this.state.filterKabupaten}
-                    onChange={this.handleChangeOfFilterByKabupaten}
-                    displayEmpty
-                    name="FilterKabupaten"
-                    className={classes.selectEmpty}
-                  >
-                    <MenuItem value="*"><em>All Kabupaten</em></MenuItem>
-                    {
-                      Object.keys(this.listOfKabupaten).map( (key, index) => {
-                          return (
-                              <MenuItem value={this.listOfKabupaten[key]} key={key}>
-                                  {this.listOfKabupaten[key]}
-                              </MenuItem>
-                          )
-                      })
-                    }
-                  </Select>
-                  <br/>
-                  <br/>
-                ) : (<div/>)
-
+                { kabupatenFilterMenu }
+                
                 <InputLabel shrink htmlFor="age-label-placeholder">
                   Filter By Kecamatan
                 </InputLabel>
