@@ -94,6 +94,7 @@ class LoginPage extends React.Component {
                 sessionStorage.setItem("key", this.token);
                 sessionStorage.setItem("avatarUrl", userData.avatarUrl);
                 sessionStorage.setItem("role", userData.role);
+                sessionStorage.setItem("tingkat", userData.tingkat);
 
                 if(dataResult.role === "ADMIN") {
                     sessionStorage.setItem("admin", "true");

@@ -328,7 +328,7 @@ class DaftarDukunganPage extends React.Component {
       }
     }
 
-    var role = sessionStorage.getItem("role").toLocaleLowerCase()
+    var tingkat = sessionStorage.getItem("tingkat").toLocaleLowerCase()
 
     if(this.props.selectedPendukung.length > 0) {
       return (
@@ -347,7 +347,7 @@ class DaftarDukunganPage extends React.Component {
 
     var kabupatenFilterMenu = <div/>
 
-    if(role == "dprd1" || role == "dprri" || role == "dpd" || role == "ri") {
+    if(tingkat == "dprd1" || tingkat == "dprri" || tingkat == "dpd" || tingkat == "ri") {
           kabupatenFilterMenu = (
           <InputLabel shrink htmlFor="age-label-placeholder"> + 
             Filter By Kabupaten + 
