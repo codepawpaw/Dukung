@@ -328,7 +328,7 @@ class DaftarDukunganPage extends React.Component {
       }
     }
 
-    var tingkat = sessionStorage.getItem("tingkat").toLocaleLowerCase()
+    var tingkat = sessionStorage.getItem("tingkat").toLocaleLowerCase();
 
     if(this.props.selectedPendukung.length > 0) {
       return (
@@ -349,30 +349,32 @@ class DaftarDukunganPage extends React.Component {
 
     if(tingkat == "dprd1" || tingkat == "dprri" || tingkat == "dpd" || tingkat == "ri") {
           kabupatenFilterMenu = (
-          <InputLabel shrink htmlFor="age-label-placeholder"> + 
-            Filter By Kabupaten + 
-          </InputLabel> +
-          <br/> +
-          <Select 
-            value={this.state.filterKabupaten}
-            onChange={this.handleChangeOfFilterByKabupaten}
-            displayEmpty
-            name="FilterKabupaten"
-            className={classes.selectEmpty}
-          > +
-            <MenuItem value="*"><em>All Kabupaten</em></MenuItem> +
-            { 
-              Object.keys(this.listOfKabupaten).map( (key, index) => { 
-                  return (
-                      <MenuItem value={this.listOfKabupaten[key]} key={key}>
-                          {this.listOfKabupaten[key]}
-                      </MenuItem>
-                  ) 
-              }) 
-            } +
-          </Select> +
-          <br/> +
-          <br/> 
+            <div>
+              <InputLabel shrink htmlFor="age-label-placeholder"> 
+                Filter By Kabupaten  
+              </InputLabel>
+              <br/>
+              <Select 
+                value={this.state.filterKabupaten}
+                onChange={this.handleChangeOfFilterByKabupaten}
+                displayEmpty
+                name="FilterKabupaten"
+                className={classes.selectEmpty}
+              > 
+                <MenuItem value="*"><em>All Kabupaten</em></MenuItem>
+                { 
+                  Object.keys(this.listOfKabupaten).map( (key, index) => { 
+                      return (
+                          <MenuItem value={this.listOfKabupaten[key]} key={key}>
+                              {this.listOfKabupaten[key]}
+                          </MenuItem>
+                      ) 
+                  })
+                }
+              </Select>
+              <br/>
+              <br/> 
+            </div>
           )
     }
 
