@@ -112,7 +112,21 @@ class AddPendukungView extends React.Component {
 
     onChange(e) {
         this.uploadfile = e.target.files[0];
-        this.setState({file:e.target.files[0]})
+        const blobData = this.convertImageToBlob(this.uploadfile);
+        //this.setState({file:e.target.files[0]})
+        this.setState({ file : blobData })
+    }
+
+    convertImageToBlob(imageFile) {
+        const img = new Image();
+        img.src = imageFile;
+        const elem = document.createElement('canvas');
+        const ctx = elem.getContext('2d')
+        ctx.drawImage(img, 0, 0, 200, 200);
+
+        const data = ctx.canvas.toDataURL(img, 'image/jpeg', 1.0);
+
+        return data;
     }
 
     render() {
