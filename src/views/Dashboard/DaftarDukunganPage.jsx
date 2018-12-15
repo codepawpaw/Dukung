@@ -346,6 +346,7 @@ class DaftarDukunganPage extends React.Component {
     }
 
     var kabupatenFilterMenu = <div/>
+    var provinsiFilterMenu = <div/>
 
     if(tingkat == "dprd1" || tingkat == "dprri" || tingkat == "dpd" || tingkat == "ri") {
           kabupatenFilterMenu = (
@@ -378,24 +379,9 @@ class DaftarDukunganPage extends React.Component {
           )
     }
 
-    return (
-      <GridContainer>
-        {
-          this.state.renderPdfPreviewDaftarPendukung == true ? (
-            <DaftarPendukungPdf listPendukung={dataPendukung}/>
-          ) : (
-            <GridItem xs={12} sm={12} md={12}>
-            <Card plain>
-              <CardHeader plain color="primary">
-                <h4 className={classes.cardTitleWhite}>
-                  Daftar Dukungan
-                </h4>
-                <p className={classes.cardCategoryWhite}>
-                  Daftar dibawah ini menampilkan deretan orang yang sudah mendukung anda
-                </p>
-              </CardHeader>
-              
-              <CardBody>
+    if(tingkat == "ri") {
+          provinsiFilterMenu = (
+            <div>
                 <InputLabel shrink htmlFor="age-label-placeholder">
                   Filter By Provinsi
                 </InputLabel>
@@ -421,7 +407,29 @@ class DaftarDukunganPage extends React.Component {
 
                 <br/>
                 <br/>
+            </div>
+          )
+    }
 
+    return (
+      <GridContainer>
+        {
+          this.state.renderPdfPreviewDaftarPendukung == true ? (
+            <DaftarPendukungPdf listPendukung={dataPendukung}/>
+          ) : (
+            <GridItem xs={12} sm={12} md={12}>
+            <Card plain>
+              <CardHeader plain color="primary">
+                <h4 className={classes.cardTitleWhite}>
+                  Daftar Dukungan
+                </h4>
+                <p className={classes.cardCategoryWhite}>
+                  Daftar dibawah ini menampilkan deretan orang yang sudah mendukung anda
+                </p>
+              </CardHeader>
+              
+              <CardBody>
+                { provinsiFilterMenu }
                 { kabupatenFilterMenu }
                 
                 <InputLabel shrink htmlFor="age-label-placeholder">
